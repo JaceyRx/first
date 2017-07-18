@@ -250,7 +250,7 @@
 		<p>小方块与left的距离：<span id="ssl"></span><br />
 		<p>小方块与top的距离：<span id="sst"></span><br />
 		<!-- <p>小方块的 width ：<span id="w"></span><br />
-		<p>小方块的 height ：<span id="h"></span><br /> -->
+		<p>小方块的 height ：<span id="h"></span><br />
 	</div> -->
 </body>
 <script type="text/javascript">
@@ -266,6 +266,14 @@
 		}); 
 
 	  document.onmousedown = function() { 
+
+	  	var isSelect = false;
+		if (inBox) {
+		  isSelect = true;
+		}
+		if (!isSelect) {
+		  return;
+		}
 
 	    var selList = []; 
 
@@ -283,14 +291,7 @@
 
 	    } 
 
-	    var isSelect = false;
-		if (inBox) {
-		  isSelect = true;
-		}
-		if (!isSelect) {
-		  return;
-		  alert("aa");
-		}
+	    
 
 	    var evt = window.event || arguments[0]; 
 

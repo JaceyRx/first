@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>首页</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- 引入bootstrap -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<script src="js/jquery-3.1.1.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<style type="text/css">
+		body {background: #eeeaea }
+		.a {
+			/*border:1px solid #000; */
+			/*height: 500px;*/
+		}
+		.fileDiv{
+			width: 100px;
+			height: 100px;
+		  float:left;
+		  text-align:center;
+		  line-height:100px;
+		  font-size:12px;
+		  border:1px solid #ccc;
+		  /*margin:2px;*/
+		}
+		.seled{border:1px solid red;background-color:#D6DFF7;}  
+	</style>
+</head>
+<body>
+	<div class="container" style="background: #fff; padding-top: 20px;">
+		<div class="row">
+			<div class="col-md-4">
+				<div style="margin-bottom: 10px;">
+					<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">幕墙设置</button>
+					<button class="btn btn-primary">阵列设置</button>
+					<!-- 模态框（Modal） -->
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog" style="width:400px;">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+										&times;
+									</button>
+									<h4 class="modal-title" id="myModalLabel">
+										幕墙设置
+									</h4>
+								</div>
+								<div class="modal-body">
+									<form class="form-horizontal" role="form">
+										<div class="form-group">
+											<label class="col-sm-4 control-label">矩阵厂家</label>
+											<div class="col-sm-8">
+												<select class="form-control">
+											      <option>1</option>
+											      <option>2</option>
+											      <option>3</option>
+											      <option>4</option>
+											      <option>5</option>
+											    </select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label">输入总数</label>
+											<div class="col-sm-8">
+												<select class="form-control">
+											      <option>1</option>
+											      <option>2</option>
+											      <option>3</option>
+											      <option>4</option>
+											      <option>5</option>
+											    </select>
+											</div>
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+									</button>
+									<button type="button" class="btn btn-primary">
+										提交更改
+									</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal -->
+					</div>
+				</div>
+				<div class="panel panel-default">
+				    <div class="panel-heading">
+				        <h3 class="panel-title">
+				            矩阵切换类型
+				        </h3>
+				    </div>
+				    <div class="panel-body">
+						<div>
+						  <label class="checkbox-inline">
+						    <input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="V+A" checked>V+A
+						  </label>
+						  <label class="checkbox-inline">
+						    <input type="radio" name="optionsRadiosinline" id="optionsRadios4" value="V">
+						    V
+						  </label>
+						  <label class="checkbox-inline">
+						    <input type="radio" name="optionsRadiosinline" id="optionsRadios4" value="A">A
+						  </label>
+						</div>
+						<div style="height: 200px;background: #f0f0f0; margin: 10px;"></div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox">单屏模式
+							</label>
+						</div>
+						<div style="text-align: center;">		
+							<button class="btn btn-primary">幕墙开机</button>
+							<button class="btn btn-danger">幕墙关机</button>
+						</div>
+				    </div>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="box">
+					<div class="fileDiv">file1</div> 
+					<div class="fileDiv">file2</div> 
+					<div class="fileDiv">file3</div> 
+					<div class="fileDiv">file4</div> 
+					<div class="fileDiv">file5</div> 
+					<div class="fileDiv">file6</div> 
+					<div class="fileDiv">file7</div> 
+					<div class="fileDiv">file8</div> 
+					<div class="fileDiv">file9</div> 
+					<div class="fileDiv">file10</div> 
+					<div class="fileDiv">file11</div> 
+					<div class="fileDiv">file12</div> 
+					<div class="fileDiv">file13</div> 
+					<div class="fileDiv">file14</div> 
+					<div class="fileDiv">file15</div> 
+					<div class="fileDiv">file16</div> 
+					<div class="fileDiv">file17</div> 
+					<div class="fileDiv">file18</div> 
+					<div class="fileDiv">file19</div> 
+					<div class="fileDiv">file20</div> 
+					<div class="fileDiv">file21</div> 
+					<div class="fileDiv">file22</div> 
+					<div class="fileDiv">file23</div> 
+					<div class="fileDiv">file24</div> 
+					<div class="fileDiv">file26</div>
+					<div class="fileDiv">file27</div> 
+					<div class="fileDiv">file28</div> 
+					<div class="fileDiv">file29</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	// 选择实现
+	(function() { 
+
+		var inBox = false;
+		$(".box").mouseenter(function() {
+			inBox = true;
+		});
+		$(".box").mouseleave(function() {
+			inBox = false;
+		}); 
+
+	  document.onmousedown = function() { 
+
+	  	var isSelect = false;
+		if (inBox) {
+		  isSelect = true;
+		}
+		if (!isSelect) {
+		  return;
+		}
+
+	    var selList = []; 
+
+	    var fileNodes = document.getElementsByTagName("div"); 
+
+	    for ( var i = 0; i < fileNodes.length; i++) { 
+
+	      if (fileNodes[i].className.indexOf("fileDiv") != -1) { 
+
+	        fileNodes[i].className = "fileDiv"; 
+
+	        selList.push(fileNodes[i]); 
+
+	      } 
+
+	    } 
+
+	    
+
+	    var evt = window.event || arguments[0]; 
+
+	    var startX = (evt.x || evt.clientX); 
+
+	    var startY = (evt.y || evt.clientY); 
+
+	    var selDiv = document.createElement("div"); 
+
+	    selDiv.style.cssText = "position:absolute;width:0px;height:0px;font-size:0px;margin:0px;padding:0px;border:1px dashed #0099FF;background-color:#C3D5ED;z-index:1000;filter:alpha(opacity:60);opacity:0.6;display:none;"; 
+
+	    selDiv.id = "selectDiv"; 
+
+	    document.body.appendChild(selDiv); 
+
+	    selDiv.style.left = startX + "px"; 
+
+	    selDiv.style.top = startY + "px"; 
+
+	    var _x = null; 
+
+	    var _y = null; 
+
+	    clearEventBubble(evt); 
+
+	    document.onmousemove = function() { 
+
+	      evt = window.event || arguments[0]; 
+
+	      if (isSelect) { 
+
+	        if (selDiv.style.display == "none") { 
+
+	          selDiv.style.display = ""; 
+
+	        } 
+
+	        _x = (evt.x || evt.clientX); 
+
+	        _y = (evt.y || evt.clientY); 
+
+	        selDiv.style.left = Math.min(_x, startX) + "px"; 
+
+	        selDiv.style.top = Math.min(_y, startY) + "px"; 
+
+	        selDiv.style.width = Math.abs(_x - startX) + "px"; 
+
+	        selDiv.style.height = Math.abs(_y - startY) + "px"; 
+
+	        // ---------------- 关键算法 ---------------------  
+
+	        // offset 返回该选择框 在页面中的定位，和其宽高
+	        var _l = selDiv.offsetLeft, _t = selDiv.offsetTop; 
+
+	        var _w = selDiv.offsetWidth, _h = selDiv.offsetHeight; 
+
+	        for ( var i = 0; i < selList.length; i++) { 
+
+	          var sl = $(selList[i]).width() + $(selList[i]).offset().left;
+
+	          var st = $(selList[i]).height() + $(selList[i]).position().top;
+
+	   //        	$("#l").text(_l);
+				// $("#t").text(_t);
+				// $("#w").text(_w);
+				// $("#h").text(_h);
+				
+
+
+
+	          if (sl > _l && st > _t && $(selList[i]).offset().left < _l + _w && $(selList[i]).offset().top < _t + _h) {
+	          	
+	   //        	$("#sl").text(sl);
+				// $("#st").text(st);
+				// $("#ssl").text($(selList[i]).offset().left);
+				// $("#sst").text($(selList[i]).offset().top);
+
+	            if (selList[i].className.indexOf("seled") == -1) { 
+
+	              selList[i].className = selList[i].className + " seled"; 
+
+	            } 
+
+	          } else { 
+
+	            if (selList[i].className.indexOf("seled") != -1) { 
+
+	              selList[i].className = "fileDiv"; 
+
+	            } 
+
+	          } 
+
+	        } 
+
+	      } 
+
+	      clearEventBubble(evt); 
+
+	    } 
+
+	    document.onmouseup = function() { 
+
+	      isSelect = false; 
+
+	      if (selDiv) { 
+
+	        document.body.removeChild(selDiv); 
+
+	        showSelDiv(selList); 
+
+	      } 
+
+	      selList = null, _x = null, _y = null, selDiv = null, startX = null, startY = null, evt = null; 
+
+	    } 
+
+	  } 
+
+	})(); 
+
+	// 清除选择框  
+	function clearEventBubble(evt) { 
+
+	  if (evt.stopPropagation) 
+
+	    evt.stopPropagation(); 
+
+	  else 
+
+	    evt.cancelBubble = true; 
+
+	  if (evt.preventDefault) 
+
+	    evt.preventDefault(); 
+
+	  else 
+
+	    evt.returnValue = false; 
+	} 
+
+	function showSelDiv(arr) { 
+
+	  var count = 0; 
+
+	  var sel_json = []
+	  var selInfo = {"name":[]};   
+
+	  for ( var i = 0; i < arr.length; i++) { 
+
+	    if (arr[i].className.indexOf("seled") != -1) { 
+
+	      selInfo.name.push(arr[i].innerHTML);
+	      
+	    } 
+
+	  } 
+	  sel_json.push(selInfo)
+	  alert(JSON.stringify(sel_json)) 
+
+	} 
+</script>
+</html>
