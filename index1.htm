@@ -20,8 +20,8 @@
 			/*height: 500px;*/
 		}
 		.fileDiv{
-			width: 100px;
-			height: 100px;
+			/*width: 100px;
+			height: 100px;*/
 		  float:left;
 		  text-align:center;
 		  line-height:100px;
@@ -96,7 +96,7 @@
 									<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 									</button>
 									<button type="button" class="btn btn-primary">
-										提交更改
+										提交
 									</button>
 								</div>
 							</div><!-- /.modal-content -->
@@ -177,7 +177,7 @@
 				</div>
 			</div>
 			<div class="col-md-9" style="margin-bottom: 20px;">
-				<div class="box">
+				<div class="box" style="height: 400px;">
 					<div class="fileDiv">file1</div> 
 					<div class="fileDiv">file2</div> 
 					<div class="fileDiv">file3</div> 
@@ -414,6 +414,14 @@
 	  sel_json.push(selInfo)
 	  alert(JSON.stringify(sel_json)) 
 
-	} 
+	}
+
+	//加载时获取容器的宽度，然后设置小div的宽度
+	var box_width = $(".col-md-9").width();
+  	var box_height = $(".box").height();
+  	var small_width = box_width/8;
+  	var samll_height = box_height/4;	
+  	$(".fileDiv").css("width", small_width);
+  	$(".fileDiv").css("height", samll_height);
 </script>
 </html>
