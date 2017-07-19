@@ -38,9 +38,15 @@
 		  line-height:100px;
 		  font-size:12px;
 		  border:1px solid #ccc;
+		  cursor:pointer;			/*鼠标图形变成小手*/
 		  /*margin:2px;*/
 		}
-		.seled{border:1px solid red;background-color:#D6DFF7;}  
+		.seled{
+			border:1px solid #F00;
+			background-color:#D6DFF7;
+		}  
+	img{ }
+
 	</style>
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -63,6 +69,7 @@
 				<div style="margin-bottom: 10px;">
 					<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">幕墙设置</button>
 					<button class="btn btn-primary" data-toggle="modal" data-target="#myModal2" id="btnModel">阵列设置</button>
+
 					<!--幕墙设置 模态框（Modal） -->
 					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog" style="width:400px;">
@@ -347,6 +354,53 @@
 							</div><!-- /.modal-content -->
 						</div><!-- /.modal -->
 					</div>
+
+					<!-- 矩阵输出选择模态框 -->
+					<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+										&times;
+									</button>
+									<h4 class="modal-title" id="myModalLabel">
+										矩阵输出选择
+									</h4>
+								</div>
+								<div class="modal-body">
+									<form class="form-horizontal" role="form">
+										<div class="form-group">
+											<label class="col-sm-4 control-label">选择此屏对应的矩阵输出</label>
+											<div class="col-sm-8">
+												<select class="form-control">
+											      <option>不接矩阵</option>
+											      <option>矩阵输出1</option>
+											      <option>矩阵输出2</option>
+											      <option>矩阵输出3</option>
+											      <option>矩阵输出4</option>
+											      <option>矩阵输出5</option>
+											      <option>矩阵输出6</option>
+											      <option>矩阵输出7</option>
+											      <option>矩阵输出8</option>
+											      <option>矩阵输出9</option>
+											      <option>矩阵输出10</option>
+											    </select>
+											</div>
+										</div>
+									</form>								
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+									</button>
+									<button type="button" class="btn btn-primary">
+										提交
+									</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal -->
+					</div>
+
+
 				</div>
 				<div class="panel panel-default">
 				    <div class="panel-heading">
@@ -369,7 +423,7 @@
 						</div>
 						<div style=" margin: 10px;">
 							<ul id="read" >
-						        <li ><a href="#">VGA</a>
+						        <li ><a href="#" id="vga" onclick="setType('VGA')">VGA</a>
 						            <ul>
 						                <li><a href="#">矩阵输入1</a></li>
 						                <li><a href="#">矩阵输入2</a></li>
@@ -381,7 +435,7 @@
 						                <li><a href="#">矩阵输入8</a></li>
 						            </ul>
 						        </li>
-						        <li ><a href="#">AV</a>
+						        <li ><a href="#" id="av" onclick="setType('AV')">AV</a>
 						        	<ul>
 						                <li><a href="#">矩阵输入1</a></li>
 						                <li><a href="#">矩阵输入2</a></li>
@@ -393,8 +447,8 @@
 						                <li><a href="#">矩阵输入8</a></li>
 						            </ul>
 						        </li>
-						        <li ><a href="#">AV2</a></li>
-						        <li ><a href="#">DVI</a>
+						        <li ><a href="#" id="av2" onclick="setType('AV2')">AV2</a></li>
+						        <li ><a href="#" id="dvi" onclick="setType('DVI')">DVI</a>
 						        	<ul>
 						                <li><a href="#">矩阵输入1</a></li>
 						                <li><a href="#">矩阵输入2</a></li>
@@ -406,7 +460,7 @@
 						                <li><a href="#">矩阵输入8</a></li>
 						            </ul>
 						        </li>
-						        <li ><a href="#">HDMI</a></li>
+						        <li ><a href="#" id="hdmi" onclick="setType('HDMI')">HDMI</a></li>
 						    </ul>
 						</div>
 						<div class="checkbox">
@@ -471,6 +525,8 @@
 		<p>小方块与top的距离：<span id="sst"></span><br />
 		<p>小方块的 width ：<span id="w"></span><br />
 		<p>小方块的 height ：<span id="h"></span><br />
+		<p>你所选择的内容：<span id="jsonStr"></span></p>
+		<button class="btn btn-info" id="db">双击</button>
 	</div>
 </body>
 <script type="text/javascript">
@@ -671,8 +727,7 @@
 
 		}
 		sel_json.push(selInfo)
-		alert(JSON.stringify(sel_json))
-
+		$("#jsonStr").text(JSON.stringify(sel_json));
 	}
 
 	//加载时获取容器的宽度，然后设置小div的宽度
@@ -682,6 +737,35 @@
 	var samll_height = box_height / 4;
 	$(".box .fileDiv").css("width", small_width);
 	$(".box .fileDiv").css("height", samll_height);
+
+	// 设置输出类型
+	function setType(type) {
+		$(".box div").each(function() {
+			var i = $(this).attr("class").indexOf("seled");
+			if (i != -1) {
+				$(this).text(type);
+			};
+		});
+	};
+
+
+	// smallDiv
+	// dblclick
+	$(".smallDiv").click(function () {
+		$(".smallDiv").each(function() {
+			var i = $(this).attr("class").indexOf("seled");
+			if (i != -1) {
+				$(this).removeClass("seled");
+			};
+		}); 
+		$(this).toggleClass("seled");
+		$('#myModal3').modal({
+			keyboard: true
+		});
+	});
+
+
+
 </script>
 
 <script type="text/javascript">
