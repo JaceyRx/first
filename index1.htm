@@ -274,11 +274,7 @@
 													</div>
 												</div>
 											</div>
-											<!-- <div style="border:1px solid #f0f0f0; margin-bottom:15px;  "></div> -->
-											<div style="text-align: center;">		
-												<button class="btn btn-primary">确认</button>
-												<button class="btn btn-danger">关闭</button>
-											</div>
+											
 											</div>	      	
 									      <!-- 右边 -->
 									      <div class="col-md-8 a" >
@@ -531,7 +527,7 @@
 </body>
 <script type="text/javascript">
 	// 选择实现
-	(function() { 
+	(function() {
 		var inBox = false;
 		$(".box").mouseenter(function() {
 			inBox = true;
@@ -541,172 +537,173 @@
 		});
 		if (inBox) {
 
-		} 
-	  document.onmousedown = function() { 
-	  	var isSelect = false;
-		if (inBox) {
-		  isSelect = true;
 		}
-		if (!isSelect) {
-		  return;
+		document.onmousedown = function() {
+			var isSelect = false;
+			if (inBox) {
+				isSelect = true;
+			}
+			if (!isSelect) {
+				return;
+			}
+
+			var selList = [];
+
+			var fileNodes = document.getElementsByTagName("div");
+
+			for (var i = 0; i < fileNodes.length; i++) {
+				if (fileNodes[i].className.indexOf("fileDiv") != -1) {
+
+					fileNodes[i].className = "fileDiv";
+
+					selList.push(fileNodes[i]);
+
+				}
+
+			}
+
+
+
+			var evt = window.event || arguments[0];
+
+			var startX = (evt.x || evt.clientX);
+
+			var startY = (evt.y || evt.clientY);
+
+			var selDiv = document.createElement("div");
+
+			selDiv.style.cssText = "position:absolute;width:0px;height:0px;font-size:0px;margin:0px;padding:0px;border:1px dashed #0099FF;background-color:#C3D5ED;z-index:100000;filter:alpha(opacity:60);opacity:0.6;display:none;";
+
+			selDiv.id = "selectDiv";
+
+			document.body.appendChild(selDiv);
+
+			selDiv.style.left = startX + "px";
+
+			selDiv.style.top = startY + "px";
+
+			var _x = null;
+
+			var _y = null;
+
+			clearEventBubble(evt);
+
+			document.onmousemove = function() {
+
+				evt = window.event || arguments[0];
+
+				if (isSelect) {
+
+					if (selDiv.style.display == "none") {
+
+						selDiv.style.display = "";
+
+					}
+
+					_x = (evt.x || evt.clientX);
+
+					_y = (evt.y || evt.clientY);
+
+					selDiv.style.left = Math.min(_x, startX) + "px";
+
+					selDiv.style.top = Math.min(_y, startY) + "px";
+
+					selDiv.style.width = Math.abs(_x - startX) + "px";
+
+					selDiv.style.height = Math.abs(_y - startY) + "px";
+
+					// ---------------- 关键算法 ---------------------  
+
+					// offset 返回该选择框 在页面中的定位，和其宽高
+					var _l = selDiv.offsetLeft,
+						_t = selDiv.offsetTop;
+
+					var _w = selDiv.offsetWidth,
+						_h = selDiv.offsetHeight;
+
+					for (var i = 0; i < selList.length; i++) {
+
+						var sl = $(selList[i]).width() + $(selList[i]).offset().left;
+
+						var st = $(selList[i]).height() + $(selList[i]).position().top;
+
+						//        	$("#l").text(_l);
+						// $("#t").text(_t);
+						// $("#w").text(_w);
+						// $("#h").text(_h);
+
+
+
+						if (sl > _l && st > _t && $(selList[i]).offset().left < _l + _w && $(selList[i]).offset().top < _t + _h) {
+
+							//        	$("#sl").text(sl);
+							// $("#st").text(st);
+							// $("#ssl").text($(selList[i]).offset().left);
+							// $("#sst").text($(selList[i]).offset().top);
+
+							if (selList[i].className.indexOf("seled") == -1) {
+
+								selList[i].className = selList[i].className + " seled";
+
+							}
+
+						} else {
+
+							if (selList[i].className.indexOf("seled") != -1) {
+
+								selList[i].className = "fileDiv";
+
+							}
+
+						}
+
+					}
+
+				}
+
+				clearEventBubble(evt);
+
+			}
+
+			document.onmouseup = function() {
+
+				isSelect = false;
+
+				if (selDiv) {
+
+					document.body.removeChild(selDiv);
+
+					showSelDiv(selList);
+
+				}
+
+				selList = null, _x = null, _y = null, selDiv = null, startX = null, startY = null, evt = null;
+
+			}
+
 		}
 
-	    var selList = []; 
-
-	    var fileNodes = document.getElementsByTagName("div"); 
-
-	    for ( var i = 0; i < fileNodes.length; i++) { 
-	      if (fileNodes[i].className.indexOf("fileDiv") != -1) { 
-
-	        fileNodes[i].className = "fileDiv"; 
-
-	        selList.push(fileNodes[i]); 
-
-	      } 
-
-	    } 
-
-	    
-
-	    var evt = window.event || arguments[0]; 
-
-	    var startX = (evt.x || evt.clientX); 
-
-	    var startY = (evt.y || evt.clientY); 
-
-	    var selDiv = document.createElement("div"); 
-
-	    selDiv.style.cssText = "position:absolute;width:0px;height:0px;font-size:0px;margin:0px;padding:0px;border:1px dashed #0099FF;background-color:#C3D5ED;z-index:100000;filter:alpha(opacity:60);opacity:0.6;display:none;"; 
-
-	    selDiv.id = "selectDiv"; 
-
-	    document.body.appendChild(selDiv); 
-
-	    selDiv.style.left = startX + "px"; 
-
-	    selDiv.style.top = startY + "px"; 
-
-	    var _x = null; 
-
-	    var _y = null; 
-
-	    clearEventBubble(evt); 
-
-	    document.onmousemove = function() { 
-
-	      evt = window.event || arguments[0]; 
-
-	      if (isSelect) { 
-
-	        if (selDiv.style.display == "none") { 
-
-	          selDiv.style.display = ""; 
-
-	        } 
-
-	        _x = (evt.x || evt.clientX); 
-
-	        _y = (evt.y || evt.clientY); 
-
-	        selDiv.style.left = Math.min(_x, startX) + "px"; 
-
-	        selDiv.style.top = Math.min(_y, startY) + "px"; 
-
-	        selDiv.style.width = Math.abs(_x - startX) + "px"; 
-
-	        selDiv.style.height = Math.abs(_y - startY) + "px"; 
-
-	        // ---------------- 关键算法 ---------------------  
-
-	        // offset 返回该选择框 在页面中的定位，和其宽高
-	        var _l = selDiv.offsetLeft, _t = selDiv.offsetTop; 
-
-	        var _w = selDiv.offsetWidth, _h = selDiv.offsetHeight; 
-
-	        for ( var i = 0; i < selList.length; i++) { 
-
-	          var sl = $(selList[i]).width() + $(selList[i]).offset().left;
-
-	          var st = $(selList[i]).height() + $(selList[i]).position().top;
-
-	   //        	$("#l").text(_l);
-				// $("#t").text(_t);
-				// $("#w").text(_w);
-				// $("#h").text(_h);
-				
-
-
-
-	          if (sl > _l && st > _t && $(selList[i]).offset().left < _l + _w && $(selList[i]).offset().top < _t + _h) {
-	          	
-	   //        	$("#sl").text(sl);
-				// $("#st").text(st);
-				// $("#ssl").text($(selList[i]).offset().left);
-				// $("#sst").text($(selList[i]).offset().top);
-
-	            if (selList[i].className.indexOf("seled") == -1) { 
-
-	              selList[i].className = selList[i].className + " seled"; 
-
-	            } 
-
-	          } else { 
-
-	            if (selList[i].className.indexOf("seled") != -1) { 
-
-	              selList[i].className = "fileDiv"; 
-
-	            } 
-
-	          } 
-
-	        } 
-
-	      } 
-
-	      clearEventBubble(evt); 
-
-	    } 
-
-	    document.onmouseup = function() { 
-
-	      isSelect = false; 
-
-	      if (selDiv) { 
-
-	        document.body.removeChild(selDiv); 
-
-	        showSelDiv(selList); 
-
-	      } 
-
-	      selList = null, _x = null, _y = null, selDiv = null, startX = null, startY = null, evt = null; 
-
-	    } 
-
-	  } 
-
-	})(); 
+	})();
 
 	// 清除选择框  
-	function clearEventBubble(evt) { 
+	function clearEventBubble(evt) {
 
-	  if (evt.stopPropagation) 
+		if (evt.stopPropagation)
 
-	    evt.stopPropagation(); 
+			evt.stopPropagation();
 
-	  else 
+		else
 
-	    evt.cancelBubble = true; 
+			evt.cancelBubble = true;
 
-	  if (evt.preventDefault) 
+		if (evt.preventDefault)
 
-	    evt.preventDefault(); 
+			evt.preventDefault();
 
-	  else 
+		else
 
-	    evt.returnValue = false; 
-	} 
+			evt.returnValue = false;
+	}
 
 	function showSelDiv(arr) {
 
@@ -751,13 +748,13 @@
 
 	// smallDiv
 	// dblclick
-	$(".smallDiv").click(function () {
+	$(".smallDiv").click(function() {
 		$(".smallDiv").each(function() {
 			var i = $(this).attr("class").indexOf("seled");
 			if (i != -1) {
 				$(this).removeClass("seled");
 			};
-		}); 
+		});
 		$(this).toggleClass("seled");
 		$('#myModal3').modal({
 			keyboard: true
@@ -769,7 +766,6 @@
 </script>
 
 <script type="text/javascript">
-
 	//判断是否时模态框
 	var isModel = false;
 	// 模态框的选择实现
@@ -782,8 +778,8 @@
 		var modalWidth = $("#panel-body").width();
 		var modalheight = $(".box2").height();
 
-		var modal_smallDiv_Width = modalWidth/8;
-		var modal_smallDiv_Height = modalheight/4;
+		var modal_smallDiv_Width = modalWidth / 8;
+		var modal_smallDiv_Height = modalheight / 4;
 
 		$(".smallDiv").css("width", modal_smallDiv_Width);
 		$(".smallDiv").css("height", modal_smallDiv_Height);
