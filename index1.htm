@@ -5,8 +5,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- 引入bootstrap -->
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/jquery.treeview.css" />
+	<link rel="stylesheet" href="css/screen.css" />
+
 	<script src="js/jquery-3.1.1.js"></script>
 	<script src="js/bootstrap.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+	<script src="js/jquery.treeview.js"></script>
+
 	<style type="text/css">
 		body {background: #eeeaea }
 		.a {
@@ -25,11 +31,24 @@
 		}
 		.seled{border:1px solid red;background-color:#D6DFF7;}  
 	</style>
+	<script type="text/javascript">
+		$(document).ready(function(){
+            $("#read").treeview({
+                animated: "fast",
+                collapsed: true,
+                unique: true,
+                persist: "cookie",
+                toggle: function() {
+                    window.console && console.log("%o was toggled", this);
+                }
+            });
+        });
+	</script>
 </head>
 <body>
 	<div class="container" style="background: #fff; padding-top: 20px;">
 		<div class="row">
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div style="margin-bottom: 10px;">
 					<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">幕墙设置</button>
 					<button class="btn btn-primary">阵列设置</button>
@@ -48,7 +67,7 @@
 								<div class="modal-body">
 									<form class="form-horizontal" role="form">
 										<div class="form-group">
-											<label class="col-sm-4 control-label">矩阵厂家</label>
+											<label class="col-sm-4 control-label">水平单元数</label>
 											<div class="col-sm-8">
 												<select class="form-control">
 											      <option>1</option>
@@ -60,7 +79,7 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label">输入总数</label>
+											<label class="col-sm-4 control-label">垂直单元数</label>
 											<div class="col-sm-8">
 												<select class="form-control">
 											      <option>1</option>
@@ -103,7 +122,48 @@
 						    <input type="radio" name="optionsRadiosinline" id="optionsRadios4" value="A">A
 						  </label>
 						</div>
-						<div style="height: 200px;background: #f0f0f0; margin: 10px;"></div>
+						<div style=" margin: 10px;">
+							<ul id="read" >
+						        <li ><a href="#">VGA</a>
+						            <ul>
+						                <li><a href="#">矩阵输入1</a></li>
+						                <li><a href="#">矩阵输入2</a></li>
+						                <li><a href="#">矩阵输入3</a></li>
+						                <li><a href="#">矩阵输入4</a></li>
+						                <li><a href="#">矩阵输入5</a></li>
+						                <li><a href="#">矩阵输入6</a></li>
+						                <li><a href="#">矩阵输入7</a></li>
+						                <li><a href="#">矩阵输入8</a></li>
+						            </ul>
+						        </li>
+						        <li ><a href="#">AV</a>
+						        	<ul>
+						                <li><a href="#">矩阵输入1</a></li>
+						                <li><a href="#">矩阵输入2</a></li>
+						                <li><a href="#">矩阵输入3</a></li>
+						                <li><a href="#">矩阵输入4</a></li>
+						                <li><a href="#">矩阵输入5</a></li>
+						                <li><a href="#">矩阵输入6</a></li>
+						                <li><a href="#">矩阵输入7</a></li>
+						                <li><a href="#">矩阵输入8</a></li>
+						            </ul>
+						        </li>
+						        <li ><a href="#">AV2</a></li>
+						        <li ><a href="#">DVI</a>
+						        	<ul>
+						                <li><a href="#">矩阵输入1</a></li>
+						                <li><a href="#">矩阵输入2</a></li>
+						                <li><a href="#">矩阵输入3</a></li>
+						                <li><a href="#">矩阵输入4</a></li>
+						                <li><a href="#">矩阵输入5</a></li>
+						                <li><a href="#">矩阵输入6</a></li>
+						                <li><a href="#">矩阵输入7</a></li>
+						                <li><a href="#">矩阵输入8</a></li>
+						            </ul>
+						        </li>
+						        <li ><a href="#">HDMI</a></li>
+						    </ul>
+						</div>
 						<div class="checkbox">
 							<label>
 								<input type="checkbox">单屏模式
@@ -116,7 +176,7 @@
 				    </div>
 				</div>
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-9" style="margin-bottom: 20px;">
 				<div class="box">
 					<div class="fileDiv">file1</div> 
 					<div class="fileDiv">file2</div> 
@@ -146,6 +206,10 @@
 					<div class="fileDiv">file27</div> 
 					<div class="fileDiv">file28</div> 
 					<div class="fileDiv">file29</div>
+					<div class="fileDiv">file30</div>
+					<div class="fileDiv">file31</div>
+					<div class="fileDiv">file32</div> 
+					<div class="fileDiv">file33</div>
 				</div>				
 			</div>
 		</div>
