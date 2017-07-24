@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<meta charset="UTF-8"/>
+<script src="js/jquery-3.1.1.js"></script>
+<script src="js/bootstrap.js"></script>
+
+
+<style type="text/css">
+	.fileDiv{
+			/*width: 100px;*/
+			/*height: 100px;*/
+		  float:left;
+		  text-align:center;
+		  /*line-height:20px;*/
+		  font-size:12px;
+		  border:1px solid #ccc;
+		  /*margin:2px;*/
+	}
+	.seled{
+			border:1px solid #F00;
+			background-color:#D6DFF7;
+	}  
+</style>
+
+</head>
+<body>
+		<div class="">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="box">
+						<div class="fileDiv">file1</div> 
+						<div class="fileDiv">file2</div> 
+						<div class="fileDiv">file3</div> 
+						<div class="fileDiv">file4</div> 
+						<div class="fileDiv">file5</div> 
+						<div class="fileDiv">file6</div> 
+						<div class="fileDiv">file7</div> 
+						<div class="fileDiv">file8</div> 
+						<div class="fileDiv">file9</div> 
+						<div class="fileDiv">file10</div> 
+						<div class="fileDiv">file11</div> 
+						<div class="fileDiv">file12</div> 
+						<div class="fileDiv">file13</div> 
+						<div class="fileDiv">file14</div> 
+						<div class="fileDiv">file15</div> 
+						<div class="fileDiv">file16</div> 
+						<div class="fileDiv">file17</div> 
+						<div class="fileDiv">file18</div> 
+						<div class="fileDiv">file19</div> 
+						<div class="fileDiv">file20</div> 
+						<div class="fileDiv">file21</div> 
+						<div class="fileDiv">file22</div> 
+						<div class="fileDiv">file23</div> 
+						<div class="fileDiv">file24</div> 
+						<div class="fileDiv">file25</div>
+						<div class="fileDiv">file26</div>
+						<div class="fileDiv">file27</div> 
+						<div class="fileDiv">file28</div> 
+						<div class="fileDiv">file29</div>
+						<div class="fileDiv">file30</div>
+						<div class="fileDiv">file31</div>
+						<div class="fileDiv">file32</div> 
+					</div>
+			</div>
+		</div>
+		<h1 id="inp"></h1>
+</body>
+<script type="text/javascript" src="js/my_.js" ></script>
+<script type="text/javascript">
+	//加载时获取容器的宽度，然后设置小div的宽度
+	var box_width = $(".col-lg-12").width();
+	// var box_height = $(".box").height();
+	var box_height = 600;
+	var small_width = box_width / 8;
+	var samll_height = box_height / 4;
+	$(".box .fileDiv").css("width", small_width);
+	$(".box .fileDiv").css("height", samll_height);
+</script>
+
+</html>
