@@ -70,7 +70,7 @@ function load2 () {
 			}
 			//创建选择框			
 			var selDiv = document.createElement("div");
-			selDiv.style.cssText = "position:absolute;width:0px;height:0px;font-size:0px;margin:0px;padding:0px;border:1px dashed #0099FF;background-color:#C3D5ED;z-index:10000;filter:alpha(opacity:60);opacity:0.6;display:none;";
+			selDiv.style.cssText = "position:absolute;width:0px;height:0px;font-size:0px;margin:0px;padding:0px;border:1px dashed #0099FF;background-color:#C3D5ED;z-index:10000;filter:alpha(opacity:0);opacity:0;display:none;";
 			selDiv.id = "selectDiv";
 			document.body.appendChild(selDiv);
 			// 设置选择框与窗口的距离
