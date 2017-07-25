@@ -71,16 +71,9 @@ function load2 () {
 		// 屏幕触摸事件
 		if (event.type == "touchstart" || event.type == "mousedown") {
 			isSelect = true;
-			if (ispc) {
-				// 鼠标按下的坐标
-				startX = (event.x || event.clientX);
-				startY = (event.y || event.clientY);
-			} else {
-				//获取触摸点的坐标
-				startX = (event.touches[0].x || event.touches[0].clientX);
-				startY = (event.touches[0].y || event.touches[0].clientY);
-			}
 			
+			startX = (event.x || event.clientX || event.touches[0].x || event.touches[0].clientX );
+			startY = ( event.y || event.clientY || event.touches[0].y || event.touches[0].clientY );
 			
 			oInp.innerHTML = "<br>Touch Start(" + startX + "," + startY + ")";
 			//获取需要被选中的DIV
@@ -115,14 +108,9 @@ function load2 () {
 					selDiv.style.display = "";
 				}
 				
-				if (ispc) {
-					_x = (event.x || event.clientX);
-					_y = (event.y || event.clientY);
-				} else {
-					// 获取触摸移动的坐标
-					_x = (event.touches[0].x || event.touches[0].clientX);
-					_y = (event.touches[0].y || event.touches[0].clientY);
-				}
+				// 获取触摸移动的坐标
+				_x = (event.x || event.clientX || event.touches[0].x || event.touches[0].clientX );
+				_y = (event.y || event.clientY || event.touches[0].y || event.touches[0].clientY );
 				
 				// 显示
 				oInp.innerHTML = "<br>Touch Move (" + Math.min(_x, startX) + "," + Math.min(_y, startY) + ")";  
