@@ -69,6 +69,21 @@
 </body>
 <script type="text/javascript" src="js/my_.js" ></script>
 <script type="text/javascript">
+	function IsPC() {
+	    var userAgentInfo = navigator.userAgent;
+	    var Agents = ["Android", "iPhone",
+	                "SymbianOS", "Windows Phone",
+	                "iPad", "iPod"];
+	    var flag = true;
+	    for (var v = 0; v < Agents.length; v++) {
+	        if (userAgentInfo.indexOf(Agents[v]) > 0) {
+	            flag = false;
+	            break;
+	        }
+	    }
+	    return flag;
+	}
+
 	//加载时获取容器的宽度，然后设置小div的宽度
 	var box_width = $(".col-lg-12").width();
 	// var box_height = $(".box").height();

@@ -3,12 +3,15 @@ function load (){
     document.addEventListener('touchstart',touch, false);  
     document.addEventListener('touchmove',touch, false);  
     document.addEventListener('touchend',touch, false);  
-       
+    document.addEventListener('mousedown', touch, false)
+    document.addEventListener('mousemove', touch, false)
+    document.addEventListener('mouseup', touch, false)
+
     function touch (event){  
         var event = event || window.event;  
            
         var oInp = document.getElementById("inp");  
-   
+        
         switch(event.type){  
             case "touchstart":  
                 oInp.innerHTML = "Touch started (" + event.touches[0].clientX + "," + event.touches[0].clientY + ")";  
@@ -19,9 +22,18 @@ function load (){
             case "touchmove":  
                 event.preventDefault();  
                 oInp.innerHTML = "<br>Touch moved (" + event.touches[0].clientX + "," + event.touches[0].clientY + ")";  
+                break;
+            case "mousedown":  
+                oInp.innerHTML = "Mouse started (" + (event.clientX || event.touches[0].clientX) + "," + (event.clientY || event.touches[0].clientY) + ")";  
                 break;  
+            case "mousemove":  
+                oInp.innerHTML = "<br>Mouse move (" + (event.clientX || event.touches[0].clientX) + "," + (event.clientX || event.touches[0].clientX) + ")";  
+                break;  
+            case "mouseup":  
+                event.preventDefault();  
+                oInp.innerHTML = "<br>Mouse end(" + event.clientX + "," + event.clientY + ")";  
+                break; 
         }  
-           
     } 
 
 }  
@@ -32,6 +44,9 @@ function load2 () {
 	document.addEventListener('touchstart',touch, false);  
     document.addEventListener('touchmove',touch, false);  
     document.addEventListener('touchend',touch, false); 
+    document.addEventListener('mousedown', touch, false)
+    document.addEventListener('mousemove', touch, false)
+    document.addEventListener('mouseup', touch, false)
     
 	var startX = null;
 	var startY = null;
@@ -40,23 +55,32 @@ function load2 () {
 	var _y = null;
 	
 	var selList = [];
+	var isSelect = false;
+	var ispc = IsPC();
 	
 	function touch (event) {
 		var event = event || window.event;
 		
+		var selDiv = null;
+		
 		// 临时显示
 		var oInp = document.getElementById("inp")
-		
-		isSelect = true;
-		
 		
 		var fileNodes = document.getElementsByTagName("div");
 		
 		// 屏幕触摸事件
-		if (event.type == "touchstart") {
-			//获取触摸点的坐标
-			startX = (event.touches[0].x || event.touches[0].clientX);
-			startY = (event.touches[0].y || event.touches[0].clientY);
+		if (event.type == "touchstart" || event.type == "mousedown") {
+			isSelect = true;
+			if (ispc) {
+				// 鼠标按下的坐标
+				startX = (event.x || event.clientX);
+				startY = (event.y || event.clientY);
+			} else {
+				//获取触摸点的坐标
+				startX = (event.touches[0].x || event.touches[0].clientX);
+				startY = (event.touches[0].y || event.touches[0].clientY);
+			}
+			
 			
 			oInp.innerHTML = "<br>Touch Start(" + startX + "," + startY + ")";
 			//获取需要被选中的DIV
@@ -81,19 +105,25 @@ function load2 () {
 		}
 		
 		// 触摸移动事件
-		if (event.type == "touchmove") {
-			
-			var selDiv = document.getElementById("selectDiv");
-			
+		if (event.type == "touchmove" || event.type == "mousemove") {
+		
+			selDiv = document.getElementById("selectDiv");
+	
 			if (isSelect) {
 				//让选择框显示
 				if (selDiv.style.display == "none") {
 					selDiv.style.display = "";
 				}
-				// 获取触摸移动的坐标
-				_x = (event.touches[0].x || event.touches[0].clientX);
-				_y = (event.touches[0].y || event.touches[0].clientY);
-
+				
+				if (ispc) {
+					_x = (event.x || event.clientX);
+					_y = (event.y || event.clientY);
+				} else {
+					// 获取触摸移动的坐标
+					_x = (event.touches[0].x || event.touches[0].clientX);
+					_y = (event.touches[0].y || event.touches[0].clientY);
+				}
+				
 				// 显示
 				oInp.innerHTML = "<br>Touch Move (" + Math.min(_x, startX) + "," + Math.min(_y, startY) + ")";  
 				
@@ -136,10 +166,11 @@ function load2 () {
 			
 			clearEventBubble(event);
 		}
+		
 		// 触摸移除事件
-		if(event.type == "touchend") {
+		if(event.type == "touchend" || event.type == "mouseup") {
 			isSelect = false;
-			var selDiv = document.getElementById("selectDiv");
+			selDiv = document.getElementById("selectDiv");
 			if(selDiv) {
 				document.body.removeChild(selDiv);
 //				showSelDiv(selList);
@@ -173,6 +204,20 @@ function clearEventBubble(evt) {
 		evt.returnValue = false;
 }
 
-
+// 判断是否是PC
+function IsPC() {
+    var userAgentInfo = navigator.userAgent;
+    var Agents = ["Android", "iPhone",
+                "SymbianOS", "Windows Phone",
+                "iPad", "iPod"];
+    var flag = true;
+    for (var v = 0; v < Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) {
+            flag = false;
+            break;
+        }
+    }
+    return flag;
+}
 
 window.addEventListener("load", load2, false);
